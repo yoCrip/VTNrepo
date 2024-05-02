@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My first API Call</title>
+</head>
+<body>
+    <div id="apiResult">Loading NFT VTN...</div>
+
+    <script>
+const myHeaders = new Headers();
+myHeaders.append("X-application-vkn", "8slB3e-R7csxJN-SctdWK_U0H6FwtpwEf3BxS9JFTCnNHOgTP8PBXKKxp8NAkMuW");
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZWxpdUlkc1NGNVMyR0JtbTdVNE4zY0s1WGsiLCJ0eXBlIjoiZXJwIiwiaWQiOiIiLCJ1c2VybmFtZSI6ImljcnlwdG95bzAwN0BnbWFpbC5jb20iLCJjaWQiOiIyZjBhN2M1Ny05MTYxLTQ2YTItOTgwOC1hZWQwNWU3YjY1MWEiLCJza3UiOlt7InIiOjExLCJzIjo4LCJlIjowfSx7InIiOjExLCJzIjo4MDAxLCJlIjowfSx7InIiOjExLCJzIjo4MDEwLCJlIjowfSx7InIiOjExLCJzIjo4MDAyLCJlIjowfSx7InIiOjExLCJzIjo4MDA1LCJlIjowfSx7InIiOjExLCJzIjo4MDAzLCJlIjowfSx7InIiOjExLCJzIjozLCJlIjowfV0sInB1YyI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCJ9.ny2DyAkP4DmjA0PjK57_eJvZvwZwvlx2EDzrhS_yczkEk6hS3dwHMPS-MviPhlh8B5BWu-UM9daFgIAVXqQMBsLm3aTsZ_6_0B3t6QgwuYoXEOENWBeUt6JeD5lTjcuJA2_9InobEqsmNXQEb_9U3Ij0FVoP7qIWmX5QFn9H1GxouWejumROrS0KaZjn0GMDKQ65LLhPlfy7zZQB9satpqthIps6ezbfZXrfKfIbEqgBN77bEI44Fe_qzsISzkBeeOiEB8h3tE96vzd1Fxi7RinG_gslgFHU0Ie7UVQi24Nyf9sLD1EUMIbjq6HZ4VrQvUGta1Uvwa8bpBSazuz7SMHS8VA2-GZ4GLaDYVz6rkVt8lvjizRcc32d7xtezxFCMQztftYeO8dCzWn29UeIMO7RcYc_Jxh8fTR9mEfj6RIDfvRpV0EX_EKexF8hgnV81kCxsVQyyspfy4NGs3OY4-H4-Bs5-vhfQZhII5RmEDMOFEp0GrfkBx-JfrGEVi2g6QQlO93fEp11-Z2BetDbd00MRRZsM3Ikz7iaO6hl4b5MHyl63aYyktZjg9Hrb-lVwP7iMgpI8xXVaMcIhM98GkCSdB6u3Y7x9MzrY2z0hwoGVLpyaDsAgWX40EYLxapdokUot9qj9Hlcbou0svE65yDhJIP1f3eqGpEIgBYCyGQ");
+
+const raw = JSON.stringify({
+  "contractAddress": "0xEE6EEbE711dac57D08C3a99701239d64918A15d1",
+  "network": 80002,
+  "id": 1
+});
+
+const requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow"
+};
+        // The API is called
+        fetch("https://api.vottun.tech/erc/v1/erc721/tokenUri", requestOptions)
+            .then(response => response.json()) 
+            .then(result => {
+                console.log(result);
+                // An image is created. URI is set as source
+                const img = document.createElement('img');
+                img.src = result.uri;
+                img.alt = 'Imagen NFT';
+                document.getElementById('apiResult').innerHTML = '';             
+	        document.getElementById('apiResult').appendChild(img);
+            })
+            .catch(error => console.log('error', error));
+    </script>
+    <div id = 'apiResult'>NFT loaded correctly</div>
+</body>
+</html>
